@@ -62,21 +62,18 @@ class AnnonceVisites
      */
     private $codePostal;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pays;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ville;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="annoncesVisites")
      * @ORM\JoinColumn(nullable=false)
      */
     private $membre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="localisationVisit")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
 
     public function getId(): ?int
     {
@@ -191,29 +188,7 @@ class AnnonceVisites
         return $this;
     }
 
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
 
-    public function setPays(string $pays): self
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
 
     public function getMembre(): ?Membre
     {
@@ -223,6 +198,18 @@ class AnnonceVisites
     public function setMembre(?Membre $membre): self
     {
         $this->membre = $membre;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

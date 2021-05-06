@@ -44,10 +44,30 @@ class Membre
      */
     private $annoncesVisites;
 
-    public function __construct()
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    //ajout du hydrate + constructeur ! 
+    public function hydrate(array $init)
     {
+        foreach ($init as $key => $value) {
+            $method = "set" . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+    
+    // on modifie le constructeur pour faire appel au hydrate
+  
+    public function __construct($arrayInit = [])
+    {
+        
         $this->articlesInfos = new ArrayCollection();
         $this->annoncesVisites = new ArrayCollection();
+        $this->hydrate ($arrayInit);
     }
 
     public function getId(): ?int
@@ -147,6 +167,18 @@ class Membre
                 $annoncesVisite->setMembre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }

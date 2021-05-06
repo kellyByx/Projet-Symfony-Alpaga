@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class FrontController extends AbstractController
 {
@@ -26,11 +28,6 @@ class FrontController extends AbstractController
         return $this->render("front/pointInfo.html.twig");
     }
 
-    #[Route("/visites", name: 'visites')]
-    public function visites(): Response
-    {
-        return $this->render("front/visites.html.twig");
-    }
 
     #[Route("/inscription", name: 'inscription')]
     public function inscription(): Response
