@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
 {
-    #[Route("/index", name: 'index')]
+    #[Route("/", name: 'index')]
     public function index(): Response
     {
         return $this->render("front/index.html.twig");
@@ -27,6 +27,20 @@ class FrontController extends AbstractController
     {
         return $this->render("front/pointInfo.html.twig");
     }
+
+    //un article => le 4eme = pour faux
+    // #[Route("/articleInfo/4", name: 'articleInfo')]
+    // public function ArticleInfo(): Response
+    // {
+    //     return $this->render("front/articleInfo.html.twig");
+    // }
+    // #[Route("/article", name: 'article')]
+    // public function article(): Response
+    // {
+    //     return $this->render("front/article.html.twig");
+    // }
+
+
 
 
     #[Route("/inscription", name: 'inscription')]
@@ -50,11 +64,7 @@ class FrontController extends AbstractController
 
    
 
-    #[Route("/article", name: 'article')]
-    public function article(): Response
-    {
-        return $this->render("front/article.html.twig");
-    }
+    
 }
 
   // #[Route('/front', name: 'front')]

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AnnonceVisites;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,6 +10,7 @@ use App\Repository\PaysRepository;
 use App\Repository\VilleRepository;
 use App\Entity\Pays;
 use App\Entity\Ville;
+use App\Repository\AnnonceVisitesRepository;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -18,9 +20,9 @@ class RechercheVisitesController extends AbstractController
    //test 1:
 
    #[Route("/visites", name: 'visites')]
-   public function visites(PaysRepository $paysRepository, VilleRepository $villeRepository): Response
+   public function visites( AnnonceVisitesRepository $repoAnnonce,  PaysRepository $paysRepository, VilleRepository $villeRepository): Response
    {
-       //filtre:
+      //filtre:
        $em =$this->getDoctrine()->getManager();
 
        $repoPays = $em->getRepository(Pays::class);
@@ -30,10 +32,14 @@ class RechercheVisitesController extends AbstractController
        $villes = $repoVille->findAll();
        dump($desPays);
 
-       $vars = [
+      // articles
+      // $repoAnnonce = $this->getDoctrine()->getRepository(AnnonceVisites::class); // plus besoin grâce dépendance l 23
+      $annonces = $repoAnnonce->findAll();
 
-           'desPays'=>$desPays,
-           'villes'=>$villes,
+       $vars = [
+          'desPays'=>$desPays,
+          'villes'=>$villes,
+          'annonces'=>$annonces,
        ];
      //  vardump($vars);
        dump($vars);
@@ -68,6 +74,28 @@ class RechercheVisitesController extends AbstractController
 
      
   // }
+
+
+  // met id pour avoir celui de l'article cliqué dans la pg ds annonces visites
+  #[Route("/articleVisite/{id}", name: 'articleVisite')]
+  
+  //peut encore plus simplifier avec injection de dépendance de symfony en enlevant:
+  // public function ArticleVisite( AnnonceVisitesRepository $repoAnnonce, $id): Response
+  // {
+  //     //$repoAnnonce =$this->getDoctrine()->getRepository(AnnonceVisites::class);// plus besoin grâce dépendance l 81
+  //     $annonce = $repoAnnonce->find($id);
+
+  //pour ensuite passer une variable annonce de type annonceVisites => grace param converter
+  public function ArticleVisite( AnnonceVisites $annonce): Response
+  {     
+      return $this->render("front/articleVisite.html.twig",[
+        'annonce'=> $annonce,
+      ]);
+  }
+
+
+
+
 
   #[Route('ajax/axios/traitement/pays/visites', name:'traitement_pays_visites')]
   public function traitementPaysVisites(Request $req, SerializerInterface $serializer)
