@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
         //creation de membres
         for ($i = 0; $i < 6; $i++) {
                $membre = new Membre([
-                   'nom' => $faker->lastName,
+                   'username' => $faker->lastName,
                    'email' => $faker->email,
                    'telephone' => $faker->phoneNumber,
                    'password'=> ($i + 1111)
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
             $AnnonceVisite->setMembre($membre)
                             ->setVille($ville1) 
                             ->setNomLieu("Lieux numéro $lieu")
-                            ->setDescription($faker->paragraphs(2,true))//text(300))
+                            ->setDescription($faker->paragraphs(2,true))//paragraph())//text(300))
                             ->setRegion($faker->region())
                             ->setLangue("Francais")
                             ->setEmail($faker->email())

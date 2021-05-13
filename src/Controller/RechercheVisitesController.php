@@ -11,9 +11,12 @@ use App\Repository\VilleRepository;
 use App\Entity\Pays;
 use App\Entity\Ville;
 use App\Repository\AnnonceVisitesRepository;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Form\AnnonceVisitesType;
 
 class RechercheVisitesController extends AbstractController
 {
@@ -76,6 +79,48 @@ class RechercheVisitesController extends AbstractController
   // }
 
 
+
+  #[Route("/articleVisite/formArticle", name:'formArticle')]
+  public function formArticle( Request $requete): Response
+  {
+      $annonce = new AnnonceVisites();
+       $form = $this->createFormBuilder($annonce)
+                    ->add('nomLieu')
+                    ->add('description')
+                    ->add('region')
+                    ->add('langue')
+                    ->add('email')
+                    ->add('telephone')
+                    ->add('rue')
+                    ->add('numero')
+                    ->add('codePostal')
+                    ->getForm();
+      
+      //remplace par le form généré:
+      //$form = $this->createForm(AnnonceVisitesType::class);
+        
+      $form->handleRequest($requete);
+      dump($annonce);
+
+      return $this->render("front/formArticle.html.twig",[
+        'formAnnonce'=> $form->createView(),
+      ] );
+  }
+
+
+  
+  // #[Route("/articleVisite/formArticle", name: 'formArticle')]
+  // public function formArticle(): Response
+  // {
+  //     $formAnnonce = $this->createForm(AnnonceVisitesType::class);
+
+  //     $vars=["unFormulaire"=> $formAnnonce->createView()];
+     
+                   
+  //     return $this->render("front/formArticle.html.twig",$vars);
+  // }
+
+
   // met id pour avoir celui de l'article cliqué dans la pg ds annonces visites
   #[Route("/articleVisite/{id}", name: 'articleVisite')]
   
@@ -93,6 +138,7 @@ class RechercheVisitesController extends AbstractController
       ]);
   }
 
+  
 
 
 

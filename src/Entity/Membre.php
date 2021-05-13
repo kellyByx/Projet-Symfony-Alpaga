@@ -6,11 +6,18 @@ use App\Repository\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=MembreRepository::class)
+ * @UniqueEntity(
+ *  fields={"email"}, 
+ *  message="Adresse email deja pris !"
+ * )
  */
-class Membre
+class Membre implements UserInterface
 {
     /**
      * @ORM\Id
@@ -22,10 +29,11 @@ class Membre
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
@@ -46,8 +54,14 @@ class Membre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="mot de passe non identique")
+     */    
+    public $confirmerPassword;
 
     //ajout du hydrate + constructeur ! 
     public function hydrate(array $init)
@@ -75,14 +89,14 @@ class Membre
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nom;
+        return $this->username;
     }
 
-    public function setNom(string $nom): self
+    public function setUsername(string $username): self
     {
-        $this->nom = $nom;
+        $this->username = $username;
 
         return $this;
     }
@@ -181,5 +195,14 @@ class Membre
         $this->password = $password;
 
         return $this;
+    }
+
+
+    public function eraseCredentials(){}
+
+    public function getSalt(){}
+
+    public function getRoles( ) {
+        return ['ROLE_MEMBRE'];
     }
 }

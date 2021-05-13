@@ -29,31 +29,19 @@ class FrontController extends AbstractController
     }
 
     //un article => le 4eme = pour faux
-    // #[Route("/articleInfo/4", name: 'articleInfo')]
-    // public function ArticleInfo(): Response
-    // {
-    //     return $this->render("front/articleInfo.html.twig");
-    // }
-    // #[Route("/article", name: 'article')]
-    // public function article(): Response
-    // {
-    //     return $this->render("front/article.html.twig");
-    // }
+    //#[Route("/articleInfo/4", name: 'articleInfo')]
+    
+     #[Route("/articleInfo", name: 'articleInfo')]
+     public function ArticleInfo(): Response
+     {
+         return $this->render("front/articleInfo.html.twig");
+      }
 
-
-
-
-    #[Route("/inscription", name: 'inscription')]
-    public function inscription(): Response
-    {
-        return $this->render("front/inscription.html.twig");
-    }
-
-    #[Route("/connexion", name: 'connexion')]
-    public function connexion(): Response
-    {
-        return $this->render("front/connexion.html.twig");
-    }
+    //  #[Route("/article", name: 'article')]
+    //  public function article(): Response
+    //  {
+    //      return $this->render("front/article.html.twig");
+    //  }
 
   
     #[Route("/contact", name: 'contact')]
@@ -62,15 +50,5 @@ class FrontController extends AbstractController
         return $this->render("front/contact.html.twig");
     }
 
-   
 
-    
 }
-
-  // #[Route('/front', name: 'front')]
-    // public function index(): Response
-    // {
-    //     return $this->render('front/index.html.twig', [
-    //         'controller_name' => 'FrontController',
-    //     ]);
-    // }
