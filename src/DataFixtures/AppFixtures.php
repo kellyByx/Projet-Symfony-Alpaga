@@ -49,48 +49,48 @@ class AppFixtures extends Fixture
 
         //création theme
 
-        $theme1 = new Theme();
-        $theme1->setNom("Alimentation");
+        // $theme1 = new Theme();
+        // $theme1->setNom("Alimentation");
 
-        $theme2 = new Theme();
-        $theme2->setNom("Equipement");
+        // $theme2 = new Theme();
+        // $theme2->setNom("Equipement");
 
-        $theme3 = new Theme();
-        $theme3->setNom("Comportement");
+        // $theme3 = new Theme();
+        // $theme3->setNom("Comportement");
 
-        $theme4 = new Theme();
-        $theme4->setNom("Amenagement");
+        // $theme4 = new Theme();
+        // $theme4->setNom("Amenagement");
 
-        $theme5 = new Theme();
-        $theme5->setNom("Veterinaire");
+        // $theme5 = new Theme();
+        // $theme5->setNom("Veterinaire");
 
-        $theme6 = new Theme();
-        $theme6->setNom("Tondeur");
+        // $theme6 = new Theme();
+        // $theme6->setNom("Tondeur");
 
-        $theme7 = new Theme();
-        $theme7->setNom("Laine");
+        // $theme7 = new Theme();
+        // $theme7->setNom("Laine");
 
-        $manager->persist($theme1);
-        $manager->persist($theme2);
-        $manager->persist($theme3);
-        $manager->persist($theme4);
-        $manager->persist($theme5);
-        $manager->persist($theme6);
-        $manager->persist($theme7);
+        // $manager->persist($theme1);
+        // $manager->persist($theme2);
+        // $manager->persist($theme3);
+        // $manager->persist($theme4);
+        // $manager->persist($theme5);
+        // $manager->persist($theme6);
+        // $manager->persist($theme7);
 
-         //TypeInformation
-         $TypeInfo1 = new TypeInformation();
-         $TypeInfo1->setNom("Bonnes Adreses");
+        //  //TypeInformation
+        //  $TypeInfo1 = new TypeInformation();
+        //  $TypeInfo1->setNom("Bonnes Adreses");
 
-         $TypeInfo2 = new TypeInformation();
-         $TypeInfo2->setNom("Conseils");
+        //  $TypeInfo2 = new TypeInformation();
+        //  $TypeInfo2->setNom("Conseils");
         
-         $TypeInfo3 = new TypeInformation();
-         $TypeInfo3->setNom("Expériences");
+        //  $TypeInfo3 = new TypeInformation();
+        //  $TypeInfo3->setNom("Expériences");
 
-         $manager->persist($TypeInfo1);
-         $manager->persist($TypeInfo2);
-         $manager->persist($TypeInfo3);
+        //  $manager->persist($TypeInfo1);
+        //  $manager->persist($TypeInfo2);
+        //  $manager->persist($TypeInfo3);
 
         // utilisation de faker
 
@@ -143,7 +143,7 @@ class AppFixtures extends Fixture
         //                       ->setCodePostal($faker->postcode());
         //         $manager->persist($articleInfos);
         //     }
-        // }
+         }
         
          $manager->flush();
      }
