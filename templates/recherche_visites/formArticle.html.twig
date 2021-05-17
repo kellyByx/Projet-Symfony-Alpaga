@@ -1,0 +1,142 @@
+
+{% extends 'base.html.twig' %}
+{# {% form_theme formAnnonce 'bootstrap_4_layout.html.twig ' %} #}
+{% block body %}
+ <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="d-flex flex-column text-center mb-5">
+            <h4 class="text-secondary mb-3">Etape 2:</h4>
+            <h1 class="display-4 m-0">Complété l'annonce: <span class="text-primary">Visites</span></h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-sm-4 mb-5">
+                 {# {{form(formAnnonce)}} #}
+
+                 {# {{form_start(formAnnonce, {'attr': {'id':"form_visite"}})}} #}
+                    {# <div class="form-group">
+                        <label for="">Nom lieu</labem>
+                      {{form_widget(formAnnonce.description)}}
+                    </div> #}
+                    {# {{form_widget(formAnnonce)}} #}
+
+                    {# {{form_row(formAnnonce.nomLieu, {'attr': {'placeholder': "Nom du lieu de la visite"}})}}
+                    {{form_row(formAnnonce.description, {'attr': {'placeholder': "Description de l'annonce pour la visite"}})}}
+                    {{form_row(formAnnonce.langue, {'attr': {'placeholder': "Langue possible pour la visite"}})}} 
+                    {{form_row(formAnnonce.rue, {'attr': {'placeholder': "Rue"}})}}
+                    {{form_row(formAnnonce.numero, {'attr': {'placeholder': "Numéro"}})}}
+                    {{form_row(formAnnonce.codePostal, {'attr': {'placeholder': "Code postal"}})}}
+                      {{form_row(formAnnonce.region, {'attr': {'placeholder': "Region du lieu de la visite"}})}}
+                    {{form_row(formAnnonce.email, {'attr': {'placeholder': "L'email de contact"}})}}
+                    {{form_row(formAnnonce.telephone, {'attr': {'placeholder': "Numero de telephone"}})}}
+                    
+                    {{form_row(formAnnonce.pays)}} 
+                    {{form_row(formAnnonce.ville)}} #}
+
+                <form method="POST" action="{{ path('loginMembre') }}" id="form_visite">
+                    {# <div class="d-flex justify-content-center align-items-center p-4"> #}
+                        <div class="form-group">
+                            <h4>Nom du lieux </h4>
+                            <input  placeholder="Nom" required name="nomLieu" type="text" class="form-control border-1 p-4" />
+                        </div>
+                        <div class="form-group">
+                            <h4>Description</h4>
+                            <textarea name="description" required type="text" class="form-control border-1 p-4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <h4>La région </h4>
+                            <input  placeholder="Region" required name="region" type="text" class="form-control border-1 p-4" />
+                        </div>
+                        <div class="form-group">
+                            <h4>Langue de la visite </h4>
+                            <input  placeholder="Langue" required name="langue" type="text" class="form-control border-1 p-4" />
+                        </div>
+                        <div class="form-group">
+                            <h4>Votre Email</h4>
+                            <input placeholder="Email" required name="email" type="text" class="form-control border-1 p-4"  />
+                        </div>
+                        <div class="form-group">
+                            <h4>Numéro de téléphone </h4>
+                            <input  placeholder="Téléphone" required name="telephone" type="text" class="form-control border-1 p-4" />
+                        </div>
+                        <div class="form-group">
+                            <h4>Nom de la rue</h4>
+                            <input  placeholder="Nom de la rue" required name="rue" type="text" class="form-control border-1 p-4" />
+                           </div>
+                        <div class="form-group">
+                            <h4>Numéro</h4>
+                            <input  placeholder="Numéro" required name="numero" type="text" class="form-control border-1 p-4" />
+                        </div>
+                        <div class="form-group">
+                            <h4>Code Postal </h4>
+                            <input  placeholder="Code postal" required name="codePostal" type="text" class="form-control border-1 p-4" />
+                        </div>
+                        <div>
+                            <h4> Valider votre pays et la ville </h4>
+                            <select name="Pays" id="selectPays"  placeholder="selectionne pays" selected=selected>
+                                 <option value="">--Selectionner le pays--</option> 
+                                {% for pays in desPays %}
+                                    <option value="{{ pays.id }}">{{ pays.nom }}</option>                               
+                                {% endfor %}
+                            </select>
+
+                            <select name="Ville" id="selectVille"> 
+                                {% for ville in villes %} 
+                                    <option value="{{ ville.id }}">{{ ville.nom }}</option>           
+                                {% endfor %}
+                            </select>           
+                        </div>
+                        </br>
+                        <div>    
+                            <button class="btn btn-primary py-3 px-5 " type="submit" id="sendMessageButton">valider</button>
+                        </div>
+             
+                 </form>
+
+                    {# <button class="btn btn-primary py-3 px-5 " type="submit" id="sendMessageButton">valider</button> #}
+                 {# {{form_end(formAnnonce)}} #}
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Contact End -->
+{% block javascripts %}
+<script>
+
+const selectPays = document.getElementById("selectPays");
+console.log(selectPays);
+const selectVille = document.getElementById("selectVille");
+console.log(selectVille);
+
+selectPays.addEventListener("change", function (event){
+    console.log('testChangementDePays');
+    axios({
+            url:'{{path ("traitement_pays_visites")}}',
+            method:'POST',
+            headers:{'Content-type': 'multipart/form-data'},
+            data: new FormData(document.getElementById("form_visite"))
+        })
+        .then(function (response){
+            console.log(response.data);
+            //remet l'option ville a 0
+            selectVille.options.length = 0;
+
+            //charge les nouvelles options
+            var options = response.data;
+            console.log(options[0].villes);
+            console.log(selectVille.options);
+            for ( index = 0; index < options[0].villes.length; index++) {
+                option = options[0].villes[index];
+                selectVille.options.add(new Option(option.nom, option.id));
+                
+            }
+        }).catch(function(error){
+            console.log (error);
+        })
+    
+});
+
+</script>
+
+{% endblock %}
+{% endblock %}    

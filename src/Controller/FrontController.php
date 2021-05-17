@@ -22,26 +22,7 @@ class FrontController extends AbstractController
         return $this->render("front/alpagaLama.html.twig");
     }
 
-    #[Route("/pointInfo", name: 'pointInfo')]
-    public function pointInfo(): Response
-    {
-        return $this->render("front/pointInfo.html.twig");
-    }
-
-    //un article => le 4eme = pour faux
-    //#[Route("/articleInfo/4", name: 'articleInfo')]
     
-     #[Route("/articleInfo", name: 'articleInfo')]
-     public function ArticleInfo(): Response
-     {
-         return $this->render("front/articleInfo.html.twig");
-      }
-
-    //  #[Route("/article", name: 'article')]
-    //  public function article(): Response
-    //  {
-    //      return $this->render("front/article.html.twig");
-    //  }
 
   
     #[Route("/contact", name: 'contact')]

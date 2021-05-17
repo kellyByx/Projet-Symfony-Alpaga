@@ -10,6 +10,7 @@ use App\Repository\PaysRepository;
 use App\Repository\VilleRepository;
 use App\Entity\Pays;
 use App\Entity\Ville;
+use App\Form\AddVilleType;
 use App\Repository\AnnonceVisitesRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -78,45 +79,83 @@ class RechercheVisitesController extends AbstractController
      
   // }
 
+  #[Route("/articleVisite/formVille", name:'formVille')]
+  public function formVille( Request $requete): Response
+  { $manager= $this->getDoctrine()->getManager();
+    $ville = new Ville();
+    $form = $this->createForm(AddVilleType::class, $ville);
+    $form->handleRequest($requete);
+    //dump($ville);
 
+    if($form->isSubmitted() && $form->isValid()){
+     $manager->persist($ville);
+     $manager->flush();
+
+    return $this->redirectToRoute('formArticle');
+    }
+
+    $vars = [
+      'formVille'=> $form->createView(),
+    ];
+
+    return $this->render("recherche_visites/formVille.html.twig", $vars );
+  }
 
   #[Route("/articleVisite/formArticle", name:'formArticle')]
   public function formArticle( Request $requete): Response
   {
-      $annonce = new AnnonceVisites();
-       $form = $this->createFormBuilder($annonce)
-                    ->add('nomLieu')
-                    ->add('description')
-                    ->add('region')
-                    ->add('langue')
-                    ->add('email')
-                    ->add('telephone')
-                    ->add('rue')
-                    ->add('numero')
-                    ->add('codePostal')
-                    ->getForm();
-      
-      //remplace par le form généré:
-      //$form = $this->createForm(AnnonceVisitesType::class);
-        
-      $form->handleRequest($requete);
-      dump($annonce);
+      $manager= $this->getDoctrine()->getManager();
 
-      return $this->render("front/formArticle.html.twig",[
-        'formAnnonce'=> $form->createView(),
+      $repoPays = $manager->getRepository(Pays::class);
+      $repoVille = $manager->getRepository(Ville::class);
+
+      $desPays = $repoPays->findAll();
+      $villes = $repoVille->findAll();
+
+      dump($desPays);
+      $annonce = new AnnonceVisites();
+      //  $form = $this->createFormBuilder($annonce)
+      //               ->add('nomLieu',TextareaType::class)
+      //               ->add('description')
+      //               ->add('region')
+      //               ->add('langue')
+      //               ->add('email')
+      //               ->add('telephone')
+      //               ->add('rue')
+      //               ->add('numero')
+      //               ->add('codePostal')
+      //               ->getForm();
+      
+              // //peux remplace par le form généré:
+              // $form = $this->createForm(AnnonceVisitesType::class, $annonce);
+            
+              // $form->handleRequest($requete);
+              // dump($annonce);
+
+              // if($form->isSubmitted() && $form->isValid()){
+              //   //$annonce->setMembre($this->getUser());
+              //           //->setFormAnnonce($form);
+          
+              //   $manager->persist($annonce);
+              //   $manager->flush();
+              
+          
+              //  return $this->redirectToRoute('index');
+              //  }
+
+      return $this->render("recherche_visites/formArticle.html.twig",[
+        // 'formAnnonce'=> $form->createView(),
+        //  'membre'=> $this->getUser(),
+        'desPays'=>$desPays,
+        'villes'=>$villes,
       ] );
   }
 
-
-  
   // #[Route("/articleVisite/formArticle", name: 'formArticle')]
   // public function formArticle(): Response
   // {
   //     $formAnnonce = $this->createForm(AnnonceVisitesType::class);
-
   //     $vars=["unFormulaire"=> $formAnnonce->createView()];
-     
-                   
   //     return $this->render("front/formArticle.html.twig",$vars);
   // }
 

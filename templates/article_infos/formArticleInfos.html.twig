@@ -1,0 +1,43 @@
+
+{% extends 'base.html.twig' %}
+{# {% form_theme formAnnonce 'bootstrap_4_layout.html.twig ' %} #}
+{% block body %}
+ <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="d-flex flex-column text-center mb-5">
+            <h4 class="text-secondary mb-3">Etape 2:</h4>
+            <h1 class="display-4 m-0">Complété l'annonce: <span class="text-primary">Visites</span></h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-6 col-sm-4 mb-5">
+              
+
+                  {{form_start(formInfo)}} 
+                    {# <div class="form-group">
+                        <label for="">Nom lieu</labem>
+                      {{form_widget(formInfo.description)}}
+                    </div> #}
+                   
+
+                     {{form_row(formInfo.titre, {'attr': {'placeholder': "Titre de l'article"}})}}
+                    {{form_row(formInfo.resumer, {'attr': {'placeholder': "Description courte du sujet"}})}}
+                     {{form_row(formInfo.messageInfo, {'attr': {'placeholder': "Description total du message de l'article"}})}}
+                    {{form_row(formInfo.telephone, {'attr': {'placeholder': "Numero"}})}} 
+                    {{form_row(formInfo.email, {'attr': {'placeholder': "L'email de contact"}})}}
+                    {{form_row(formInfo.rue, {'attr': {'placeholder': "Rue"}})}}
+                    {{form_row(formInfo.numero, {'attr': {'placeholder': "Numéro"}})}}
+                    {{form_row(formInfo.codePostal, {'attr': {'placeholder': "Code postal"}})}}
+                    {{form_row(formInfo.ville, {'attr': {'placeholder': "ville, exemple: Bruxelles"}})}}
+                    {{form_row(formInfo.pays, {'attr': {'placeholder': "pays, exemple: Belgique"}})}}
+                     {{form_row(formInfo.typeInformation)}}
+                     {{form_row(formInfo.theme)}}
+                     <button class="btn btn-primary py-3 px-5 " type="submit" id="sendMessageButton">valider</button> 
+                  {{form_end(formInfo)}} 
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Contact End -->
+
+{% endblock %}    

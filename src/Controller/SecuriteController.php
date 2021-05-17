@@ -29,7 +29,6 @@ class SecuriteController extends AbstractController
          $manager= $this->getDoctrine()->getManager();
 
          $form = $this->createForm(InscriptionType::class, $membre);
-
          $form->handleRequest($req);
 
          //dump($membre);

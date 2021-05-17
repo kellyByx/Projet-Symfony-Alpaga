@@ -38,16 +38,6 @@ class ArticleInfos
     private $dateArticle;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $typeInformation;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $theme;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $telephone;
@@ -87,6 +77,18 @@ class ArticleInfos
      * @ORM\JoinColumn(nullable=false)
      */
     private $membre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeInformation::class, inversedBy="typeInfos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeInformation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Theme::class, inversedBy="themeInfo")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $theme;
 
     public function getId(): ?int
     {
@@ -137,30 +139,6 @@ class ArticleInfos
     public function setDateArticle(\DateTimeInterface $dateArticle): self
     {
         $this->dateArticle = $dateArticle;
-
-        return $this;
-    }
-
-    public function getTypeInformation(): ?string
-    {
-        return $this->typeInformation;
-    }
-
-    public function setTypeInformation(string $typeInformation): self
-    {
-        $this->typeInformation = $typeInformation;
-
-        return $this;
-    }
-
-    public function getTheme(): ?string
-    {
-        return $this->theme;
-    }
-
-    public function setTheme(string $theme): self
-    {
-        $this->theme = $theme;
 
         return $this;
     }
@@ -257,6 +235,30 @@ class ArticleInfos
     public function setMembre(?Membre $membre): self
     {
         $this->membre = $membre;
+
+        return $this;
+    }
+
+    public function getTypeInformation(): ?TypeInformation
+    {
+        return $this->typeInformation;
+    }
+
+    public function setTypeInformation(?TypeInformation $typeInformation): self
+    {
+        $this->typeInformation = $typeInformation;
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): self
+    {
+        $this->theme = $theme;
 
         return $this;
     }

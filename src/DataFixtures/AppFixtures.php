@@ -6,9 +6,11 @@ use Doctrine\Persistence\ObjectManager;
 use Faker;
 use App\Entity\Membre;
 use App\Entity\AnnonceVisites;
+use App\Entity\ArticleInfos;
 use App\Entity\Pays;
 use App\Entity\Ville;
-
+use App\Entity\Theme;
+use App\Entity\TypeInformation;
 
 class AppFixtures extends Fixture
 {
@@ -45,13 +47,57 @@ class AppFixtures extends Fixture
                   ->setNom("Bordeaux");
           $manager->persist($ville4);
 
+        //création theme
+
+        $theme1 = new Theme();
+        $theme1->setNom("Alimentation");
+
+        $theme2 = new Theme();
+        $theme2->setNom("Equipement");
+
+        $theme3 = new Theme();
+        $theme3->setNom("Comportement");
+
+        $theme4 = new Theme();
+        $theme4->setNom("Amenagement");
+
+        $theme5 = new Theme();
+        $theme5->setNom("Veterinaire");
+
+        $theme6 = new Theme();
+        $theme6->setNom("Tondeur");
+
+        $theme7 = new Theme();
+        $theme7->setNom("Laine");
+
+        $manager->persist($theme1);
+        $manager->persist($theme2);
+        $manager->persist($theme3);
+        $manager->persist($theme4);
+        $manager->persist($theme5);
+        $manager->persist($theme6);
+        $manager->persist($theme7);
+
+         //TypeInformation
+         $TypeInfo1 = new TypeInformation();
+         $TypeInfo1->setNom("Bonnes Adreses");
+
+         $TypeInfo2 = new TypeInformation();
+         $TypeInfo2->setNom("Conseils");
+        
+         $TypeInfo3 = new TypeInformation();
+         $TypeInfo3->setNom("Expériences");
+
+         $manager->persist($TypeInfo1);
+         $manager->persist($TypeInfo2);
+         $manager->persist($TypeInfo3);
 
         // utilisation de faker
 
         $faker = Faker\Factory::create('fr_FR');
 
         //creation de membres
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 7; $i++) {
                $membre = new Membre([
                    'username' => $faker->lastName,
                    'email' => $faker->email,
@@ -60,8 +106,8 @@ class AppFixtures extends Fixture
                ]);
            $manager->persist($membre);
       
-            //création annonce visite
-        //   for ($j=0; $j <4 ; $j++) { 
+        //création annonce visite
+           //   for ($j=0; $j <4 ; $j++) { 
             $lieu= $i+1;
             $AnnonceVisite =  new AnnonceVisites();
             $AnnonceVisite->setMembre($membre)
@@ -77,7 +123,27 @@ class AppFixtures extends Fixture
                             ->setCodePostal($faker->postcode());
             $manager->persist($AnnonceVisite);
         //}
-        }
+
+          //création Articles infos
+        //   for ($j=1; $j <3 ; $j++) { 
+        //         $titre= $i+1;
+        //         $typeInfos=$i+1;
+        //         $articleInfos =  new ArticleInfos();
+        //         $articleInfos->setMembre($membre)
+        //                      ->setTypeInformation($j)  
+        //                      ->setTheme($typeInfos)           
+        //                       ->setVille($faker->ville()) 
+        //                       ->setTitre("Titre d'article $titre")
+        //                       ->setMessageInfo($faker->paragraphs(2,true))//paragraph())//text(300))
+        //                       ->setPays($faker->Pays())
+        //                       ->setEmail($faker->email())
+        //                       ->setTelephone($faker->phoneNumber())
+        //                       ->setRue($faker->streetAddress())
+        //                       ->setNumero($faker->buildingNumber())
+        //                       ->setCodePostal($faker->postcode());
+        //         $manager->persist($articleInfos);
+        //     }
+        // }
         
          $manager->flush();
      }
