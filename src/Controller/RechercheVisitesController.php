@@ -11,6 +11,7 @@ use App\Repository\VilleRepository;
 use App\Entity\Pays;
 use App\Entity\Ville;
 use App\Form\AddVilleType;
+use App\Data\SearchData;
 use App\Repository\AnnonceVisitesRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,36 +19,54 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Form\AnnonceVisitesType;
+use App\Form\SearchVisitesType;
+use Knp\Component\Pager\PaginatorInterface;
 
 class RechercheVisitesController extends AbstractController
 {
    //test 1:
 
    #[Route("/visites", name: 'visites')]
-   public function visites( AnnonceVisitesRepository $repoAnnonce,  PaysRepository $paysRepository, VilleRepository $villeRepository): Response
-   {
-      //filtre:
-       $em =$this->getDoctrine()->getManager();
-
+   public function visites( AnnonceVisitesRepository $repoAnnonce,PaginatorInterface $paginator,PaysRepository $paysRepository, VilleRepository $villeRepository, Request $req): Response
+   {   $em =$this->getDoctrine()->getManager();
        $repoPays = $em->getRepository(Pays::class);
        $repoVille = $em->getRepository(Ville::class);
-
        $desPays = $repoPays->findAll();
        $villes = $repoVille->findAll();
-       dump($desPays);
+      //  dump($desPays);
 
       // articles
       // $repoAnnonce = $this->getDoctrine()->getRepository(AnnonceVisites::class); // plus besoin grâce dépendance l 23
-      $annonces = $repoAnnonce->findAll();
+      
+      //filtre:
+      $data = new SearchData();
+      $form = $this->createForm(SearchVisitesType::class, $data);
 
-       $vars = [
-          'desPays'=>$desPays,
-          'villes'=>$villes,
-          'annonces'=>$annonces,
-       ];
+      $data->numeroPage = $req->get('page', 1);
+      //$data->numeroPage = $req->query->getInt('page', 1);
+      $form->handleRequest($req);
+
+      $searchAnnoncesVisitesResult =[];
+
+      if ($form->isSubmitted()) {
+         // on vient d'un submit
+        $searchAnnoncesVisitesResult = $repoAnnonce->obtenirResultatsFiltres($data);
+      } else {
+         $searchAnnoncesVisitesResult = $repoAnnonce->findAll();
+      }
+
+      // $annonces= $paginator->paginate( $data, $req->query->getInt('page', 1), 6 );
+      
+ 
      //  vardump($vars);
-       dump($vars);
-       return $this->render("recherche_visites/visites.html.twig",$vars);
+      // dump($vars);
+       return $this->render("recherche_visites/visites.html.twig",[
+        'resultatRecherche'=>$searchAnnoncesVisitesResult,
+        'form'=>$form->createView(),
+        'desPays'=>$desPays,
+        'villes'=>$villes,
+        //'annonces'=>$annonces,
+     ]);
    }
 
   //test2:
@@ -145,7 +164,7 @@ class RechercheVisitesController extends AbstractController
 
       return $this->render("recherche_visites/formArticle.html.twig",[
         // 'formAnnonce'=> $form->createView(),
-        //  'membre'=> $this->getUser(),
+        'membre'=> $this->getUser(),
         'desPays'=>$desPays,
         'villes'=>$villes,
       ] );
@@ -177,9 +196,6 @@ class RechercheVisitesController extends AbstractController
       ]);
   }
 
-  
-
-
 
 
   #[Route('ajax/axios/traitement/pays/visites', name:'traitement_pays_visites')]
@@ -188,11 +204,10 @@ class RechercheVisitesController extends AbstractController
 
      $paysId = $req->get('Pays');
      dump($paysId);
+     
      $em = $this->getDoctrine()->getManager();
      $query = $em->createQuery ('SELECT pays, villes FROM App\Entity\Pays pays ' 
      . 'JOIN pays.villes villes WHERE pays.id = :paysId') ;     
-
-
      $query->setParameter ('paysId', $paysId);
      $paysChoisiAvecVilles = $query->getResult();
      //dd($paysChoisiAvecVilles);

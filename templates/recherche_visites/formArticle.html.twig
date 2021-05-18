@@ -13,7 +13,7 @@
             <div class="col-6 col-sm-4 mb-5">
                  {# {{form(formAnnonce)}} #}
 
-                 {# {{form_start(formAnnonce, {'attr': {'id':"form_visite"}})}} #}
+                 {# {{form_start(formAnnonce, 'attr': {'id':"form_visite"})}} #}
                     {# <div class="form-group">
                         <label for="">Nom lieu</labem>
                       {{form_widget(formAnnonce.description)}}
@@ -33,7 +33,7 @@
                     {{form_row(formAnnonce.pays)}} 
                     {{form_row(formAnnonce.ville)}} #}
 
-                <form method="POST" action="{{ path('loginMembre') }}" id="form_visite">
+                <form method="POST" action="{{ path('formArticle') }}" id="form_visite">
                     {# <div class="d-flex justify-content-center align-items-center p-4"> #}
                         <div class="form-group">
                             <h4>Nom du lieux </h4>

@@ -29,12 +29,18 @@ class Pays
      */
     private $villes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AnnonceVisites::class, mappedBy="pays")
+     */
+    private $dsPays;
+
 
 
     public function __construct()
     {
         $this->contient = new ArrayCollection();
         $this->villes = new ArrayCollection();
+        $this->dsPays = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +84,36 @@ class Pays
             // set the owning side to null (unless already changed)
             if ($ville->getPays() === $this) {
                 $ville->setPays(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AnnonceVisites[]
+     */
+    public function getDsPays(): Collection
+    {
+        return $this->dsPays;
+    }
+
+    public function addDsPay(AnnonceVisites $dsPay): self
+    {
+        if (!$this->dsPays->contains($dsPay)) {
+            $this->dsPays[] = $dsPay;
+            $dsPay->setPays($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDsPay(AnnonceVisites $dsPay): self
+    {
+        if ($this->dsPays->removeElement($dsPay)) {
+            // set the owning side to null (unless already changed)
+            if ($dsPay->getPays() === $this) {
+                $dsPay->setPays(null);
             }
         }
 

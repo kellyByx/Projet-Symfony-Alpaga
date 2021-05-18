@@ -9,8 +9,8 @@
             <h4 class="text-secondary">Pet Blog</h4>
         </div>
 
-        <div class="">
-            <form method="POST" id="formulaire_visites">
+       <div class="">
+         {#   <form method="POST" action="{{ path('visites') }}" id="formulaire_visites">
                 <div class="d-flex justify-content-center align-items-center p-4">
                     <div>
                         <select name="Pays" id="selectPays"> 
@@ -27,13 +27,43 @@
                         </select>           
                     </div>
                 </div>
-            </form>
+            </form>#}
+
+           {{ form_start(form, {
+               'action': path('visites') , 
+               'method': 'GET', 
+               'attr' : { 'id' : 'formulaire_visites'} })
+            }}
+            <div class="booking-wrap d-flex justify-content-center align-items-center">
+                    <div>
+                        <h4>Pays</h4>
+                    </div>
+                    <div class="pr-3 col-4">
+                       {{ form_widget(form.pays, {
+                           'attr': {'class': 'form-control',
+                            'id':'selectPays'}})
+                        }}
+                    </div>
+                    <div>
+                        <h4>Ville</h4>
+                    </div>
+                    <div class=" pr-3 col-4">
+                       {{ form_widget(form.ville, {
+                           'attr': {'class': 'form-control',
+                            'id':'selectVille'}})
+                        }}
+                    </div>
+                 <div class="single-select-box pt-45 mb-30">
+                    <button type="submit" class="btn select-btn btn-primary" id="btnSearch">Recherche</button>
+                </div> 
+            </div> 
+            {{ form_end(form) }} 
         </div>
         
         <div id="contenuRecherche"></div>
 
         <div class="row pb-3 pt-5">
-            {% for annonce in annonces %}
+            {% for annonce in resultatRecherche %}
                 <div class="col-lg-4 mb-4">
                     <div class="card border-0 mb-2">
                         {# <img class="card-img-top" src="{{asset('assets/img/blog-1.jpg')}}" alt=""> #}
@@ -47,7 +77,10 @@
                             <p> {{annonce.description}}</p>
                             <p>Dans la région de: {{annonce.region}}</p>
                             <!-- pour que le lien fonctionne indique que id = l'id de l'annonce -->
-                            <a class="font-weight-bold" href="{{ path('articleVisite', {'id': annonce.id} ) }}">Lire la suite</a>
+                            <a class="font-weight-bold"
+                               href="{{ path('articleVisite', {'id': annonce.id} ) }}">
+                               Lire la suite
+                            </a>
                         </div>
                     </div>
                  </div>
@@ -56,21 +89,10 @@
 
         <div class="col-lg-12">
             <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center mb-4">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo; Previous</span>
-                      </a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">Next &raquo;</span>
-                      </a>
-                    </li>
-                </ul>
+             <div class="pagination justify-content-center">
+                {% do resultatRecherche.setPageRange(2) %}
+                 {{ knp_pagination_render(resultatRecherche, 'recherche_visites/pagination.html.twig') }}
+             </div>
             </nav>
         </div>
     </div>
@@ -105,12 +127,10 @@ selectPays.addEventListener("change", function (event){
             for ( index = 0; index < options[0].villes.length; index++) {
                 option = options[0].villes[index];
                 selectVille.options.add(new Option(option.nom, option.id));
-                
             }
         }).catch(function(error){
             console.log (error);
         })
-    
 });
 
 </script>

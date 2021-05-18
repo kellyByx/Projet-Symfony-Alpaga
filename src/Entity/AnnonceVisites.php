@@ -75,6 +75,12 @@ class AnnonceVisites
      */
     private $ville;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="dsPays")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $pays;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,6 +216,18 @@ class AnnonceVisites
     public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }

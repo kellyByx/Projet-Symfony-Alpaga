@@ -45,26 +45,7 @@ class AnnonceVisitesType extends AbstractType
             //      'choice_label' => 'nom',
             //  ])
         ;
-        //  $builder->get('pays')->addEventListener(
-        //   FormEvents::POST_SUBMIT,
-        //   function(FormEvent $event){
-        //     //   dump($event->getForm());
-        //     //   dump($event->getData());//affiche id du pays selectionner ds le form
-        //     //   dump($event->getForm()->getData());//id + nom du pays ds le form
-        //     // = Nd pour généré le new champ
 
-        //     $form = $event->getForm();
-
-        //     //creer sous from qui sera pour les villes
-        //     $form->getParent()->add('ville',EntityType::class, [
-        //              'class' => Ville::class,
-        //              'placeholder'=> "Selectionner votre ville",
-        //              'choice_label' => 'nom',
-        //              'auto_initialize'=>false,
-        //              'choices'=>$form->getData()->getVilles()
-        //          ]);
-        //   }
-        // );
     }
 
     public function configureOptions(OptionsResolver $resolver)
