@@ -59,7 +59,7 @@ class AnnonceVisitesRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $resultat,
             $data->numeroPage, // objet $data dans le controller, propriété publique dans la classe
-            18//nbr d'articles vont s'affiche par page
+            50//nbr d'articles vont s'affiche par page
         );
 
     }
