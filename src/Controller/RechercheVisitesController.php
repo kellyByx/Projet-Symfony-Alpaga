@@ -56,10 +56,9 @@ class RechercheVisitesController extends AbstractController
       }
 
       // $annonces= $paginator->paginate( $data, $req->query->getInt('page', 1), 6 );
-      
- 
-     //  vardump($vars);
+      //  vardump($vars);
       // dump($vars);
+      
        return $this->render("recherche_visites/visites.html.twig",[
         'resultatRecherche'=>$searchAnnoncesVisitesResult,
         'form'=>$form->createView(),

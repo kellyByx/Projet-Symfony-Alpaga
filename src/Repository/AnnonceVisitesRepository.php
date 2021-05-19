@@ -18,69 +18,64 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class AnnonceVisitesRepository extends ServiceEntityRepository
 {
+    private $paginator;
+
     public function __construct(ManagerRegistry $registry, PaginatorInterface  $paginator)
     {
         parent::__construct($registry, AnnonceVisites::class);
         $this->paginator = $paginator;
     }
 
-     /**
-      * @return AnnonceVisites[] Returns an array of AnnonceVisites objects
-      */
-    
+    /**
+     * @return AnnonceVisites[] Returns an array of AnnonceVisites objects
+     */
+
     public function obtenirResultatsFiltres(SearchData $data)
     {
-        $requestQB = $this->createQueryBuilder('a')
+        $reqQB = $this->createQueryBuilder('a')
             ->select('a.id',
                      'a.nomLieu',
                      'a.description',
                      'a.region',
                      'pays.nom', 
-                     'ville.nom'
+                     'ville.nom',
                      )
             ->join('a.pays','pays')
             ->join('a.ville','ville')
             ;
 
-            if(!empty($data->city)){
-                $requestQB = $requestQB->andWhere('a.pays = :pays')
+            if(!empty($data->pays)){
+                $reqQB = $reqQB->andWhere('a.pays = :pays')
                 ->setParameter('pays', $data->pays);       
             }
     
-            if(!empty($data->country)){
-                $requestQB = $requestQB->andWhere('a.ville = :ville')
+            if(!empty($data->ville)){
+                $reqQB = $reqQB->andWhere('a.ville = :ville')
                 ->setParameter('ville', $data->ville);       
             }
+        ;
 
-        
-            //av
+        $resultat =  $reqQB->getQuery();
+        return $this->paginator->paginate(
+            $resultat,
+            $data->numeroPage, // objet $data dans le controller, propriété publique dans la classe
+            18//nbr d'articles vont s'affiche par page
+        );
+
+    }
+
+                //av
             //  ->andWhere('a.exampleField = :val')
             //  ->setParameter('val', $value)
             //  ->orderBy('a.id', 'ASC')
             //  ->setMaxResults(10)
             //  ->getQuery()
             //  ->getResult()
-        ;
-
-         $resultat =  $requestQB->getQuery();
-
-        //leal:
-        // $reqQBQuery = $reqQB->getQuery();
-        // return $this->paginator->paginate(
-        //     $reqQBQuery,
-        //     $objFiltres->numeroPage, // objet $data dans le controller, propriété publique dans la classe
-        //     5
-        // );
-
-        //belen
-        return $this->paginator->paginate(
-            $resultat,
-            $data->numeroPage, // objet $data dans le controller, propriété publique dans la classe
-           18
-        );
-
-    }
     
+    // /**
+    //  * @return Property[] Returns an array of Property objects
+    //  */
+    /*
 
     /*
     public function findOneBySomeField($value): ?AnnonceVisites
