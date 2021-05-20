@@ -11,6 +11,7 @@ use App\Entity\Pays;
 use App\Entity\Ville;
 use App\Entity\Theme;
 use App\Entity\TypeInformation;
+use DateTime;
 
 class AppFixtures extends Fixture
 {
@@ -127,31 +128,34 @@ class AppFixtures extends Fixture
 
           //création Articles infos
         // for ($j=1; $j <3 ; $j++) { 
-        //       $titre= $i+1;
-        //       $typeInfos=$i+1;
-        //       $articleInfos =  new ArticleInfos();
-        //       $articleInfos->setMembre($membre)
-        //                    ->setTypeInformation($TypeInfo)  
-        //                    ->setTheme($themes)           
-        //                     ->setVille($faker->ville()) 
-        //                     ->setTitre("Titre d'article $titre")
-        //                     ->setMessageInfo($faker->paragraphs(2,true))//paragraph())//text(300))
-        //                     ->setPays($faker->Pays())
-        //                     ->setEmail($faker->email())
-        //                     ->setTelephone($faker->phoneNumber())
-        //                     ->setRue($faker->streetAddress())
-        //                     ->setNumero($faker->buildingNumber())
-        //                     ->setCodePostal($faker->postcode());
-        //       $manager->persist($articleInfos);
+               $titre= $i+1;
+               $articleInfos =  new ArticleInfos();
+               $date = new DateTime('06/06/2021');
+               $articleInfos->setMembre($membre)
+                            ->setTypeInformation($TypeInfo1)  
+                            ->setTheme($theme1)           
+                             ->setVille($faker->city()) 
+                             ->setTitre("Titre d'article $titre")
+                             ->setResumer($faker->paragraphs(2,true))//paragraph())//text(300))
+                             ->setMessageInfo($faker->paragraphs(2,true))//paragraph())//text(300))
+                             ->setPays($faker->country())
+                             ->setEmail($faker->email())
+                             ->setTelephone($faker->phoneNumber())
+                             ->setRue($faker->streetAddress())
+                             ->setNumero($faker->buildingNumber())
+                             ->setCodePostal($faker->postcode())
+                             ->setDateArticle($date)
+                             ;
+              $manager->persist($articleInfos);
         //   }
-        //  }
+          }
 
          for ($i = 0; $i < 7; $i++) {
           $membre = new Membre([
               'username' => $faker->lastName,
               'email' => $faker->email,
               'telephone' => $faker->phoneNumber,
-              'password'=> ($i + 1111)
+              'password'=> ($i + 1121)
           ]);
 
           $manager->persist($membre);
@@ -173,12 +177,66 @@ class AppFixtures extends Fixture
                               ->setNumero($faker->buildingNumber())
                               ->setCodePostal($faker->postcode());
               $manager->persist($AnnonceVisite);
-              }
+
+              $titre= $i+1;
+              $articleInfos =  new ArticleInfos();
+              $date = new DateTime('06/06/2021');
+              $articleInfos->setMembre($membre)
+                           ->setTypeInformation($TypeInfo2)  
+                           ->setTheme($theme2)           
+                            ->setVille($faker->city()) 
+                            ->setTitre("Titre d'article $titre")
+                            ->setResumer($faker->paragraphs(2,true))//paragraph())//text(300))
+                            ->setMessageInfo($faker->paragraphs(2,true))//paragraph())//text(300))
+                            ->setPays($faker->country())
+                            ->setEmail($faker->email())
+                            ->setTelephone($faker->phoneNumber())
+                            ->setRue($faker->streetAddress())
+                            ->setNumero($faker->buildingNumber())
+                            ->setCodePostal($faker->postcode())
+                            ->setDateArticle($date)
+                            ;
+             $manager->persist($articleInfos);
+            
+            }
+            for ($i = 0; $i < 4; $i++) {
+              $membre = new Membre([
+                  'username' => $faker->lastName,
+                  'email' => $faker->email,
+                  'telephone' => $faker->phoneNumber,
+                  'password'=> ($i + 1131)
+              ]);
+    
+              $manager->persist($membre);
+               
+                  $titre= $i+1;
+                  $articleInfos =  new ArticleInfos();
+                  $date = new DateTime('06/06/2021');
+                  $articleInfos->setMembre($membre)
+                               ->setTypeInformation($TypeInfo3)  
+                               ->setTheme($theme3)           
+                                ->setVille($faker->city()) 
+                                ->setTitre("Titre d'article $titre")
+                                ->setResumer($faker->paragraphs(2,true))//paragraph())//text(300))
+                                ->setMessageInfo($faker->paragraphs(2,true))//paragraph())//text(300))
+                                ->setPays($faker->country())
+                                ->setEmail($faker->email())
+                                ->setTelephone($faker->phoneNumber())
+                                ->setRue($faker->streetAddress())
+                                ->setNumero($faker->buildingNumber())
+                                ->setCodePostal($faker->postcode())
+                                ->setDateArticle($date)
+                                ;
+                 $manager->persist($articleInfos);
+                
+                }
+
+              
         
          $manager->flush();
      }
 }
-}
+
 
 
 
