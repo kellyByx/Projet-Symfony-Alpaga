@@ -27,7 +27,7 @@ class RechercheVisitesController extends AbstractController
    //test 1:
 
    #[Route("/visites", name: 'visites')]
-   public function visites( AnnonceVisitesRepository $repoAnnonce,PaginatorInterface $paginator,PaysRepository $paysRepository, VilleRepository $villeRepository, Request $req): Response
+   public function visites( AnnonceVisitesRepository $repoAnnonce,PaysRepository $paysRepository, VilleRepository $villeRepository, Request $req): Response
    {   $em =$this->getDoctrine()->getManager();
        $repoPays = $em->getRepository(Pays::class);
        $repoVille = $em->getRepository(Ville::class);
@@ -44,6 +44,7 @@ class RechercheVisitesController extends AbstractController
 
       $data->numeroPage = $req->get('page', 1);
       //$data->numeroPage = $req->query->getInt('page', 1);
+      
       $form->handleRequest($req);
 
       $searchAnnoncesVisitesResult =[];
@@ -52,7 +53,7 @@ class RechercheVisitesController extends AbstractController
          // on vient d'un submit
         $searchAnnoncesVisitesResult = $repoAnnonce->obtenirResultatsFiltres($data);
       } else {
-         $searchAnnoncesVisitesResult = $repoAnnonce->findAll();
+         $searchAnnoncesVisitesResult = $repoAnnonce->obtenirResultatsFiltres($data);
       }
 
       // $annonces= $paginator->paginate( $data, $req->query->getInt('page', 1), 6 );
@@ -201,7 +202,7 @@ class RechercheVisitesController extends AbstractController
   //pour ensuite passer une variable annonce de type annonceVisites => grace param converter
   public function ArticleVisite( AnnonceVisites $annonce): Response
   {     
-      return $this->render("front/articleVisite.html.twig",[
+      return $this->render("recherche_visites/articleVisite.html.twig",[
         'annonce'=> $annonce,
       ]);
   }

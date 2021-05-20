@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
 
         //TypeInformation
         $TypeInfo1 = new TypeInformation();
-        $TypeInfo1->setNom("Bonnes Adreses");
+        $TypeInfo1->setNom("Bonnes Adresses");
 
         $TypeInfo2 = new TypeInformation();
         $TypeInfo2->setNom("Conseils");
