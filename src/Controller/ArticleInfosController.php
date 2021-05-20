@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\ArticleInfos;
 use App\Form\ArticleInfosType;
+use App\Repository\ArticleInfosRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,19 +14,51 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticleInfosController extends AbstractController
 {
     #[Route("/pointInfo", name: 'pointInfo')]
-    public function pointInfo(): Response
+    public function pointInfo(
+        ArticleInfosRepository $articleInfosRepository,
+        PaginatorInterface $paginator,
+        Request $request,
+        
+        ): Response
     {
-        return $this->render("article_infos/pointInfo.html.twig");
+        $data = $articleInfosRepository->findAll();
+
+        $articlesInfos =$paginator->paginate(
+        $data,
+        $request->query->getInt('page', 1 ),
+        6
+        );
+
+        $vars = [
+            'articlesInfos'=> $articlesInfos,
+          ];
+        return $this->render("article_infos/pointInfo.html.twig",$vars);
     }
 
-    //un article => le 4eme = pour faux
-    //#[Route("/articleInfo/4", name: 'articleInfo')]
+    // //un article => le 4eme 
+    // //#[Route("/articleInfo/4", name: 'articleInfo')]
     
-     #[Route("/articleInfo", name: 'articleInfo')]
-     public function ArticleInfo(): Response
-     {
-         return $this->render("article_infos/articleInfo.html.twig");
-      }
+    //  #[Route("/articleInfo/{id}", name: 'articleInfo')]
+    //  public function ArticleInfo( $id): Response
+    //  {
+    //       $repo =$this->getDoctrine()->getRepository(ArticleInfo::class);
+    //       $articleInfo = $repo->find($id);
+
+    //      return $this->render("article_infos/articleInfo.html.twig",[
+    //          'article'-> $articleInfo,
+    //      ]);
+    //   }
+
+    
+  #[Route("/articleInfos/{id}", name: 'articleInfos')]
+  public function ArticleInfos(ArticleInfos $articleInfo): Response
+
+  {     
+      return $this->render("article_infos/articleInfo.html.twig",[
+        'articleInformatif'=> $articleInfo,
+      ]);
+  }
+
 
     //  #[Route("/article", name: 'article')]
     //  public function article(): Response

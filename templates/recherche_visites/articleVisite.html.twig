@@ -11,40 +11,38 @@
                     <h4 class="text-secondary mb-3">Detail de la visite</h4>
                     <h1 class="mb-3">{{annonce.nomLieu}}</h1>
                     <div class="d-index-flex mb-2">
-                        <span class="mr-3"><i class="fa fa-user text-muted"></i> {{annonce.Membre.Username}}</span>
-                        <span class="mr-3"><i class="fa fa-folder text-muted"></i> {{annonce.Membre.Email}}</span>
-                        <span class="mr-3"><i class="fa fa-comments text-muted"></i> {{annonce.Membre.telephone}}</span>
-                    </div>
+                        <span class="mr-3"><i class="fa fa-user text-muted"></i> <span class="text-primary">{{annonce.Membre.Username}}</span></span>
+                        <span class="mr-3"><i class="fa fa-folder text-muted"></i> <span class="text-primary">{{annonce.Membre.Email}}</span></span>
+                        <span class="mr-3"><i class="fa fa-comments text-muted"></i><span class="text-primary"> {{annonce.Membre.telephone}}</span></span>
                 </div>
-
+                </br>
                 <div class="mb-5">
                     {# <img class="img-fluid w-100 mb-4" src="img/carousel-1.jpg" alt="Image"> #}
                     <h3>Description</h3>
                     <p>{{annonce.description}}</p>
-                   <p> Langues : {{annonce.langue}}</p>
+                   <p> Langues proposer pour la visite : <span class="text-primary">{{annonce.langue}}</span></p>
 
-                    <h3 class="mb-4">Adresse du lieux de visites</h3>
+                   <div class="media bg-light mb-5 p-4 p-md-5">
+                
+                    <div class="media-body">
+
+                    <h3 class="mb-4">Adresse du lieux de visite</h3> 
                     {# <img class="img-fluid w-50 float-left mr-4 mb-3" src="img/blog-1.jpg" alt="Image"> #}
                     <p>{{annonce.numero}} {{annonce.rue}}</br>
-                       {{annonce.codePostal}} {{annonce.Ville.Nom}}</br>
-                       {{annonce.Ville.Pays.Nom}}</p>
-
-                    <p> Dans la région {{annonce.region}}</p>
+                        {{annonce.codePostal}} {{annonce.Ville.Nom}}</br>
+                        {{annonce.Ville.Pays.Nom}}</p>
+                        <p> Dans la région {{annonce.region}}</p>
+                      
+                    </div>
+                </div> 
                     
                 </div>
-                
-                <div class="media bg-light mb-5 p-4 p-md-5">
-                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-4 mt-1" style="width: 80px;">
-                    <div class="media-body">
-                        <h5 class="mb-3">John Doe</h5>
-                        <p class="m-0">Conset elitr erat vero labore dolor ipsum et diam, tempor eos dolor conset lorem ipsum, ipsum ipsum sit no ut est. Guber ea ipsum erat conset magna kasd amet est magna elitr ea sit justo sed.</p>
-                    </div>
-                </div>
+
             </div>
 
             <div class="col-lg-4 mt-5 mt-lg-0">
                
-                <div class="mb-5">
+                {# <div class="mb-5">
                     <img src="img/blog-1.jpg" alt="" class="img-fluid">
                 </div>
                 <div class="mb-5">
@@ -110,7 +108,7 @@
                 </div>
                 <div class="mb-5">
                     <img src="img/blog-3.jpg" alt="" class="img-fluid">
-                </div>
+                </div> #}
     
             </div>
         </div>

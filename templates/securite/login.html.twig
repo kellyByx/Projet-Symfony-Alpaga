@@ -1,78 +1,143 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block body %}
 
-{% block body %}
-
- <!-- Booking Start -->
-    <div class="container-fluid">
-        <div class="container">
-        <br/><br/>
-            <div class="row align-items-center">
-                <div class="col-lg-5">
-                    <div class="bg-primary py-5 px-4 px-sm-5 rounded">
-                        {# <div class="bg-white text-dark border p-5 rounded"> #}
-                        <h2 class="text-center text-white">Connexion</h2>
-                            <form class="py-5" action="{{ path('loginMembre') }}" method="post">
-                                <div class="form-group">
-                                    <h4>Votre Email</h4>
-                                    <input placeholder="Email" required name="_username" type="text" class="form-control border-0 p-4"  />
-                                </div>
-                                <div class="form-group">
-                                    <h4>Mot de passe</h4>
-                                    <input  placeholder="Mot de passe" required name="_password" type="password" class="form-control border-0 p-4" />
-                                </div>
-                                <div>
-                                    <button class="btn btn-dark btn-block border-0 py-3" type="submit">Connexion</button>
-                                </div>
-                            </form>
-                        {# </div> #}
-                    </div>
-                </div>
-                <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
-                    <h4 class="text-secondary mb-3">Going for a vacation?</h4>
-                    <h1 class="display-4 mb-4">Book For <span class="text-primary">Your Pet</span></h1>
-                    <p>Labore vero lorem eos sed aliquy ipsum aliquy sed. Vero dolore dolore takima ipsum lorem rebum</p>
-                    <div class="row py-2">
-                        <div class="col-sm-6">
-                            <div class="d-flex flex-column">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h1 class="flaticon-house font-weight-normal text-secondary m-0 mr-3"></h1>
-                                    <h5 class="text-truncate m-0">Pet Boarding</h5>
-                                </div>
-                                <p>Diam amet eos at no eos sit lorem, amet rebum ipsum clita stet</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="d-flex flex-column">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h1 class="flaticon-food font-weight-normal text-secondary m-0 mr-3"></h1>
-                                    <h5 class="text-truncate m-0">Pet Feeding</h5>
-                                </div>
-                                <p>Diam amet eos at no eos sit lorem, amet rebum ipsum clita stet</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="d-flex flex-column">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h1 class="flaticon-grooming font-weight-normal text-secondary m-0 mr-3"></h1>
-                                    <h5 class="text-truncate m-0">Pet Grooming</h5>
-                                </div>
-                                <p class="m-0">Diam amet eos at no eos sit lorem, amet rebum ipsum clita stet</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="d-flex flex-column">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h1 class="flaticon-toy font-weight-normal text-secondary m-0 mr-3"></h1>
-                                    <h5 class="text-truncate m-0">Pet Tranning</h5>
-                                </div>
-                                <p class="m-0">Diam amet eos at no eos sit lorem, amet rebum ipsum clita stet</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Booking Start -->
+<div class="container-fluid">
+  <div class="container">
+    <br /><br />
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <div class="bg-primary py-5 px-4 px-sm-5 rounded">
+          {#
+          <div class="bg-white text-dark border p-5 rounded">
+            #}
+            <h2 class="text-center text-white">Connexion</h2>
+            <form class="py-5" action="{{ path('loginMembre') }}" method="post">
+              <div class="form-group">
+                <h4>Votre Email</h4>
+                <input
+                  placeholder="Email"
+                  required
+                  name="_username"
+                  type="text"
+                  class="form-control border-0 p-4"
+                />
+              </div>
+              <div class="form-group">
+                <h4>Mot de passe</h4>
+                <input
+                  placeholder="Mot de passe"
+                  required
+                  name="_password"
+                  type="password"
+                  class="form-control border-0 p-4"
+                />
+              </div>
+              <div>
+                <button
+                  class="btn btn-dark btn-block border-0 py-3"
+                  type="submit"
+                >
+                  Connexion
+                </button>
+              </div>
+            </form>
+            {#
+          </div>
+          #}
         </div>
+      </div>
+      <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
+        <h4 class="text-secondary mb-3">Pour les Membres</h4>
+        <h1 class="display-4 mb-4">
+          Vos <span class="text-primary">avantages</span>
+        </h1>
+        <p>
+          Voici quelque une de vos possibilitées en temps que membre inscrit au
+          site:
+        </p>
+        <div class="row py-2">
+          <div class="col-sm-6">
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center mb-2">
+                <h1
+                  class="
+                    flaticon-house
+                    font-weight-normal
+                    text-secondary
+                    m-0
+                    mr-3
+                  "
+                ></h1>
+                <h5 class="text-truncate m-0">Visites</h5>
+              </div>
+              <p>Créer une annonces pour porposé des visites</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center mb-2">
+                <h1
+                  class="
+                    flaticon-food
+                    font-weight-normal
+                    text-secondary
+                    m-0
+                    mr-3
+                  "
+                ></h1>
+                <h5 class="text-truncate m-0">Alimentations</h5>
+              </div>
+              <p>
+                Ecrire un article sur un retour alimentaire constaté chez vos
+                animaux
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center mb-2">
+                <h1
+                  class="
+                    flaticon-grooming
+                    font-weight-normal
+                    text-secondary
+                    m-0
+                    mr-3
+                  "
+                ></h1>
+                <h5 class="text-truncate m-0">Soins</h5>
+              </div>
+              <p class="m-0">
+                Créer un article pour partagé les coordonées d'un vétérinaires
+                pour Alpagas
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center mb-2">
+                <h1
+                  class="
+                    flaticon-toy
+                    font-weight-normal
+                    text-secondary
+                    m-0
+                    mr-3
+                  "
+                ></h1>
+                <h5 class="text-truncate m-0">Aménagements</h5>
+              </div>
+              <p class="m-0">
+                Créer une article pour partagé vos astuces aménagements pour vos
+                animaux
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Booking Start -->
+  </div>
+</div>
+<!-- Booking Start -->
 
-{% endblock %} 
+{% endblock %}

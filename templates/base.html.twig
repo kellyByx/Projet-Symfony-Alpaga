@@ -63,7 +63,8 @@
             </div>
         </div>-->
         <div class="row py-3 px-lg-5">
-            <div class="col-lg-4">
+            <div class=" d-flex flex-row col-lg-4">
+                <img class="w-5  mb-3"src="{{ asset('assets/img/alpaga2.png') }}" alt=""> 
                 <a href="" class="navbar-brand d-none d-lg-block">
                     <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Alpaga </span>& Cie</h1>
                 </a>
@@ -130,22 +131,35 @@
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
         <div class="row pt-5">
-            <div class="col-lg-4 col-md-12 mb-5">
-                <h1 class="mb-3 display-5 text-capitalize text-white"><span class="text-primary">Alpagas</span>& Cie</h1>
-                <p class="m-0">Ipsum amet sed vero et lorem stet eos ut, labore sed sed stet sea est ipsum ut. Volup amet ea sanct ipsum, dolore vero lorem no duo eirmod. Eirmod amet ipsum no ipsum lorem clita ut. Ut sed sit lorem ea lorem sed, amet stet sit sea ea diam tempor kasd kasd. Diam nonumy etsit tempor ut sed diam sed et ea</p>
+            <div class="col-lg-6 col-md-12 mb-5">
+                 <div class=" d-flex flex-row col-lg-4"
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <div class=" d-flex flex-row col-lg-4">
+                        <img class="w-5  mb-3"src="{{ asset('assets/img/alpaga2.png') }}" alt=""> 
+                        <a href="" class="navbar-brand d-none d-lg-block">
+                            <h1 class="m-0 display-5 text-capitalize text-white"><span class="text-primary">Alpaga </span>& Cie</h1>
+                        </a>
+                    </div>
+                  
+                </a>
             </div>
-            <div class="col-lg-8 col-md-12">
+                <p class="m-0">Alpaga & cie est un projet personnel réaliser dans le cadre du cours de symfony de la formation web application developer au centre de formation interface3. ( promition 2020-2021, WAD20)</p>
+                Auteur: Kelly Byx.
+            </br>
+                <div>Icônes alpaga conçues par <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>
+            </div>
+            <div class="col-lg-4 col-md-12">
                 <div class="row">
-                    <div class="col-md-4 mb-5">
+                    {# <div class="col-md-4 mb-5">
                         <h5 class="text-primary mb-4">Get In Touch</h5>
                         <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
                         <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
                         <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
                         <div class="d-flex justify-content-start mt-4">
                            
-                        </div>
+                        </div> #}
                     </div>
-                    <div class="col-md-4 mb-5">
+                    <div class="col-md-6 mb-5">
                         <h5 class="text-primary mb-4">Popular Links</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a href='{{path ('index' )}}' class="text-white mb-2"><i class="fa fa-angle-right mr-2"></i> Accueil</a>
