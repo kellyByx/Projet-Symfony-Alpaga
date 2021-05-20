@@ -100,6 +100,14 @@ class RechercheVisitesController extends AbstractController
   #[Route("/articleVisite/formVille", name:'formVille')]
   public function formVille( Request $requete): Response
   { $manager= $this->getDoctrine()->getManager();
+
+    $repoPays = $manager->getRepository(Pays::class);
+    $repoVille = $manager->getRepository(Ville::class);
+    $desPays = $repoPays->findAll();
+    $villes = $repoVille->findAll();
+    dump($desPays);
+
+
     $ville = new Ville();
     $form = $this->createForm(AddVilleType::class, $ville);
     $form->handleRequest($requete);
@@ -114,6 +122,8 @@ class RechercheVisitesController extends AbstractController
 
     $vars = [
       'formVille'=> $form->createView(),
+      'desPays'=>$desPays,
+      'villes'=>$villes,
     ];
 
     return $this->render("recherche_visites/formVille.html.twig", $vars );
@@ -144,26 +154,27 @@ class RechercheVisitesController extends AbstractController
       //               ->add('codePostal')
       //               ->getForm();
       
-              // //peux remplace par le form généré:
-              // $form = $this->createForm(AnnonceVisitesType::class, $annonce);
+      // //peux remplace par le form généré:
+      $form = $this->createForm(AnnonceVisitesType::class, $annonce);
             
-              // $form->handleRequest($requete);
-              // dump($annonce);
+      $form->handleRequest($requete);
+      dump($annonce);
 
-              // if($form->isSubmitted() && $form->isValid()){
-              //   //$annonce->setMembre($this->getUser());
-              //           //->setFormAnnonce($form);
-          
-              //   $manager->persist($annonce);
-              //   $manager->flush();
+      if($form->isSubmitted() && $form->isValid()){
+         $annonce->setMembre($this->getUser());
+       //           //->setFormAnnonce($form);
+        
+      // dump($annonce);
+       $manager->persist($annonce);
+       $manager->flush();
               
           
-              //  return $this->redirectToRoute('index');
-              //  }
+      return $this->redirectToRoute('index');
+        }
 
       return $this->render("recherche_visites/formArticle.html.twig",[
-        // 'formAnnonce'=> $form->createView(),
-        'membre'=> $this->getUser(),
+        'formAnnonce'=> $form->createView(),
+        // 'membre'=> $this->getUser(),
         'desPays'=>$desPays,
         'villes'=>$villes,
       ] );

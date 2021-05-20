@@ -3,38 +3,41 @@
 {# {% form_theme formAnnonce 'bootstrap_4_layout.html.twig ' %} #}
 {% block body %}
  <!-- Contact Start -->
-    <div class="container-fluid pt-5">
-        <div class="d-flex flex-column text-center mb-5">
-            <h4 class="text-secondary mb-3">Etape 2:</h4>
-            <h1 class="display-4 m-0">Complété l'annonce: <span class="text-primary">Visites</span></h1>
-        </div>
+<div class="container-fluid pt-5">
+    <div class="d-flex flex-column text-center mb-5">
+        <h4 class="text-secondary mb-3">Etape 2:</h4>
+        <h1 class="display-4 m-0">Complété l'annonce: <span class="text-primary">Visites</span></h1>
+    </div>
 
-        <div class="row justify-content-center">
-            <div class="col-6 col-sm-4 mb-5">
-                 {# {{form(formAnnonce)}} #}
+    <div class="row justify-content-center">
+        <div class="col-6 col-sm-4 mb-5">
+            {# {{form(formAnnonce)}} #}
 
-                 {# {{form_start(formAnnonce, 'attr': {'id':"form_visite"})}} #}
-                    {# <div class="form-group">
-                        <label for="">Nom lieu</labem>
-                      {{form_widget(formAnnonce.description)}}
-                    </div> #}
-                    {# {{form_widget(formAnnonce)}} #}
+            {{form_start(formAnnonce, {'attr': {'id':"form_visite"}})}} 
+            
+              {# <div class="form-group">
+                  <label for="">Nom lieu</labem>
+                {{form_widget(formAnnonce.description)}}
+              </div> #}
+              {# {{form_widget(formAnnonce)}} #}
 
-                    {# {{form_row(formAnnonce.nomLieu, {'attr': {'placeholder': "Nom du lieu de la visite"}})}}
-                    {{form_row(formAnnonce.description, {'attr': {'placeholder': "Description de l'annonce pour la visite"}})}}
-                    {{form_row(formAnnonce.langue, {'attr': {'placeholder': "Langue possible pour la visite"}})}} 
-                    {{form_row(formAnnonce.rue, {'attr': {'placeholder': "Rue"}})}}
-                    {{form_row(formAnnonce.numero, {'attr': {'placeholder': "Numéro"}})}}
-                    {{form_row(formAnnonce.codePostal, {'attr': {'placeholder': "Code postal"}})}}
-                      {{form_row(formAnnonce.region, {'attr': {'placeholder': "Region du lieu de la visite"}})}}
-                    {{form_row(formAnnonce.email, {'attr': {'placeholder': "L'email de contact"}})}}
-                    {{form_row(formAnnonce.telephone, {'attr': {'placeholder': "Numero de telephone"}})}}
-                    
-                    {{form_row(formAnnonce.pays)}} 
-                    {{form_row(formAnnonce.ville)}} #}
+            {{form_row(formAnnonce.nomLieu, {'attr': {'placeholder': "Nom du lieu de la visite"}})}}
+            {{form_row(formAnnonce.description, {'attr': {'placeholder': "Description de l'annonce pour la visite"}})}}
+            {{form_row(formAnnonce.langue, {'attr': {'placeholder': "Langue possible pour la visite"}})}} 
+            {{form_row(formAnnonce.rue, {'attr': {'placeholder': "Rue"}})}}
+            {{form_row(formAnnonce.numero, {'attr': {'placeholder': "Numéro"}})}}
+            {{form_row(formAnnonce.codePostal, {'attr': {'placeholder': "Code postal"}})}}
+            {{form_row(formAnnonce.region, {'attr': {'placeholder': "Region du lieu de la visite"}})}}
+            {{form_row(formAnnonce.email, {'attr': {'placeholder': "L'email de contact"}})}}
+            {{form_row(formAnnonce.telephone, {'attr': {'placeholder': "Numero de telephone"}})}}
+              
+            {{form_row(formAnnonce.pays)}} 
+            {{form_row(formAnnonce.ville)}} 
 
-                <form method="post" id="form_visite">
-                    {# <div class="d-flex justify-content-center align-items-center p-4"> #}
+            <button class="btn btn-secondary py-3 px-5  text-white" type="submit" id="sendMessageButton">valider</button> 
+            {{form_end(formAnnonce)}} 
+
+               {# <form method="POST" action="{{ path('loginMembre') }}" id="form_visite">
                         <div class="form-group">
                             <h4>Nom du lieux </h4>
                             <input  placeholder="Nom" required name="nomLieu" type="text" class="form-control border-1 p-4" />
@@ -91,12 +94,15 @@
                             <button class="btn btn-primary py-3 px-5 " type="submit" id="sendMessageButton">valider</button>
                         </div>
              
-                 </form>
-
-                    {# <button class="btn btn-primary py-3 px-5 " type="submit" id="sendMessageButton">valider</button> #}
-                 {# {{form_end(formAnnonce)}} #}
-            </div>
+                 </form>#}
         </div>
+    </div>
+    <div class=" row justify-content-center  ">
+        <div class="col-6 col-sm-4 mb-5">
+                <h5 class="text-primary mb-3 text-center "> Si votre ville n'est pas disponible:</h5>
+                <p> <span </span> Retourner à l'étape 1 de la page précédente via ce bouton: </p>                
+                <button class="btn btn-primary btn-block col-lg-3 border-0 py-2"><a href='{{path ('formVille')}}' class="text-white">Précédent</a></button>            
+        </div>  
     </div>
 </div>
     <!-- Contact End -->

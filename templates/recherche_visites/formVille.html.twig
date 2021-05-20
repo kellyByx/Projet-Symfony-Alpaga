@@ -12,55 +12,123 @@
 </div>
     <div class="container-fluid">
         <div class="container">
-        <br/><br/>
-            <div class="row align-items-center">
-              
-                <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
-                    <h4 class="text-secondary mb-3">Etape 1: </h4>
-                    <h3 class="display-4 mb-4">Indiquer:  <span class="text-primary">Pays&ville </span></h3>
-                    <p>Nous avons fait le choix que Alpaga & Cie ne contiennent que les villes qui ont des annonces sur le site, pour cela veillez indiquer votre pays et entré votre ville.
-                       </p>
-                       <p>  Exemple: Bruxelles. </p>
-                    <div class="row">
-                        <div >
-                            <div class="d-flex flex-column p-4">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h1 class="flaticon-house font-weight-normal text-secondary m-0 mr-3"></h1>
-                                    <h5 class="text-truncate m-0">Pays</h5>
+            <h4 class="text-secondary mb-3">Etape 1: </h4>
+            <p class="display-4 mb-4">Vérifier:  <span class="text-primary">Pays&ville </span></p>
+            <p>Nous avons fait le choix que Alpaga & Cie ne contiennent que les villes qui ont des annonces sur le site, pour cela veillez
+                 vérifier si la ville de votre lieu de visite est déjà référencée sur notre site. Pour cela vous avez a votre disposition 
+                 deux selecteur qui vont indique les villes deja présente dans les annonces de sites en fonction des pays porposé par notre site.
+            </p>
+             <br/><br/>
+            <form method="POST" action="{{ path('formVille') }}" id="form_ville">
+                <div class="booking-wrap d-flex justify-content-center align-items-center">
+                    <div class="pr-3 col-4  ">
+                        <select name="Pays" id="selectPays"> 
+                            <option value="">----------  Selectionner le pays  ----------</option> 
+                            {% for pays in desPays %}
+                                <option value="{{ pays.id }}">{{ pays.nom }}</option>                               
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class=" col-4">
+                        <select name="Ville" id="selectVille"> 
+                            <option value="">----------  attendre que les ville s'affichent ----------  </option> 
+                            {% for ville in villes %} 
+                                <option value="{{ ville.id }}">{{ ville.nom }}</option>           
+                            {% endfor %}
+                        </select>           
+                    </div>
+                </div>
+            </form>
+            <br/><br/><br/>
+             <h4 class="text-secondary ">A. Si votre ville est référencée : </h4>
+             <p>Vous pouvez directement passer a l'étape 2, pour cela rendez vous en bas de cette page pour y accédez via le bouton suivant</p>
+            <br/><br/>
+             <h4 class="text-secondary mb-3">B. Si votre ville <span class="text-primary">n'est pas référencée</span> : </h4>
+                <div class="row align-items-center">
+                    <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
+                        <h4 class="mb-4">Ajouter:  <span class="text-primary">votre ville </span></h4>
+                        <p>Afin que votre ville soit référencé dans notre site veuillez indiquer votre pays et entré votre ville dans le formulaire.
+                        </p>
+                        <p>  Exemple: Bruxelles. </p>
+                        <div class="row">
+                            <div >
+                                <div class="d-flex flex-column p-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <h1 class="flaticon-house font-weight-normal text-secondary m-0 mr-3"></h1>
+                                        <h5 class="text-truncate m-0">Pays</h5>
+                                    </div>
+                                    <p>Actuellement le site n'est disponible que pour la Belgique ou la France, c'est un choix pour n'avoir qu'une zone proche de recherche entre ces 2 pays.</p>
                                 </div>
-                                <p>Actuellement le site n'est disponible que pour la Belgique ou la France, c'est un choix pour n'avoir qu'une zone proche de recherche entre ces 2 pays.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 pb-4">
+                        <div class="bg-primary py-4 px-3 px-sm-4 rounded">
+                            <div class="bg-white text-dark border p-5 rounded">
+                            
+                                {{ form_start(formVille) }}
+                                <h4 class="text-center pb-4"> Formulaire </h4>
+                            
+                                {{ form_row(formVille.pays)}}
+                            
+                                {{ form_row(formVille.nom, {'attr': {'placeholder': 'Nom : 1ère lettre en majuscule'}}) }}
+                            
+                                <div>
+                                    <button class="btn btn-secondary text-white btn-block border-0 p-3 mt-4" type="submit">Valider</button>
+                                </div>
+                                {{ form_end(formVille) }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 pb-4">
-                    <div class="bg-primary py-4 px-3 px-sm-4 rounded">
-                        <div class="bg-white text-dark border p-5 rounded">
-                        
-                            {{ form_start(formVille) }}
-                            <h4 class="text-center pb-4"> Formulaire </h4>
-                           
-                            {{ form_row(formVille.pays)}}
-                         
-                            {{ form_row(formVille.nom, {'attr': {'placeholder': 'Nom : 1ère lettre en majuscule'}}) }}
-                           
-                             <div>
-                                <button class="btn btn-secondary text-white btn-block border-0 p-3 mt-4" type="submit">Valider</button>
-                            </div>
-                            {{ form_end(formVille) }}
-                        </div>
+                <div class="col-lg-7 py-5 py-lg-0 ">
+                    <h4 class="text-secondary mb-3">Etape 2: </h4>
+                    <p class="display-4 mb-4">Créer:  <span class="text-primary">l'annonce </span></p>
+                    <p> <span class="text-primary">Si et SEULEMENT SI</span> votre ville existe et est donc déjà référencé sur notre site dans l'étape 1, vous pouvez passé à l'étape 2 via ce bouton:</p>
+                    <div class="">
+                        <button class="btn btn-primary btn-block col-lg-3 border-0 py-2 "><a href='{{path ('formArticle')}}' class="text-white">Suivant</a></button>
                     </div>
                 </div>
-                <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
-                 <h4 class="text-secondary mb-3">Etape 2: </h4>
-                <p> <span class="text-primary">Si et SEULEMENT SI</span> le formulaire vous indique que votre ville existe et est déjà référencé, vous pouvez passé à l'étape 2 via ce bouton:
-                 <div class="">
-                    <button class="btn btn-primary btn-block col-lg-3 border-0 py-2 "><a href='{{path ('formArticle')}}' class="text-white">Suivant</a></button>
-                 </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Booking Start -->
-
+    {% block javascripts %}
+    <script>
+    
+    const selectPays = document.getElementById("selectPays");
+    console.log(selectPays);
+    const selectVille = document.getElementById("selectVille");
+    console.log(selectVille);
+    
+    selectPays.addEventListener("change", function (event){
+        console.log('testChangementDePays');
+        axios({
+                url:'{{path ("traitement_pays_visites")}}',
+                method:'POST',
+                headers:{'Content-type': 'multipart/form-data'},
+                data: new FormData(document.getElementById("form_ville"))
+            })
+            .then(function (response){
+                console.log(response.data);
+                //remet l'option ville a 0
+                selectVille.options.length = 0;
+    
+                //charge les nouvelles options
+                var options = response.data;
+                console.log(options[0].villes);
+                console.log(selectVille.options);
+                for ( index = 0; index < options[0].villes.length; index++) {
+                    option = options[0].villes[index];
+                    selectVille.options.add(new Option(option.nom, option.id));
+                    
+                }
+            }).catch(function(error){
+                console.log (error);
+            })
+        
+    });
+    
+    </script>
+    
+    {% endblock %}
 {% endblock %} 
